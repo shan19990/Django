@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+.item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+.item-box {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 10px;
+    width: calc(33.33% - 22px); /* Adjust width to fit 3 boxes in a row */
+    box-sizing: border-box;
+}
+.item-box img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}

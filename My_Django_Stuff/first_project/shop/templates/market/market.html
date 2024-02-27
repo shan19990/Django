@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/market.css' %}">
+    <title>MARKET</title>
+</head>
+<body>
+    <h1>Market Items</h1>
+    
+    <ul id="item-list">
+        {% if items %}
+            {% for item in items %}
+                <li class="item-box">
+                    <strong>Name:</strong> {{ item.itemName }}<br>
+                    <strong>Description:</strong> {{ item.itemDescription }}<br>
+                    <strong>Price:</strong> ${{ item.itemPrice }}<br>
+                    <img src="{{ item.itemPic.url }}" alt="{{ item.itemName }}" width="100" height="100"><br>
+                    <a href="#" class="add-item-button" data-item="{{ item.pk }}">Add Item</a> <!-- Add data-item attribute to store item ID -->
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No items available.</p>
+        {% endif %}
+    </ul>
+
+    <h2>Cart</h2>
+    <ul id="cart-list"></ul>
+
+    <script>
+        // Define cart variable to store added items
+        var cart = [];
+
+        // Function to add item to cart
+        function addItemToCart(itemId) {
+            // Find item by ID
+            var item = document.querySelector('[data-item="' + itemId + '"]');
+            if (item) {
+                // Get item details
+                var itemName = item.parentNode.querySelector('strong').innerText;
+                var itemDescription = item.parentNode.querySelector('strong:nth-of-type(2)').innerText;
+                var itemPrice = item.parentNode.querySelector('strong:nth-of-type(3)').innerText;
+                var itemImage = item.parentNode.querySelector('img').src;
+
+                // Create cart item HTML
+                var cartItemHTML = '<li><strong>Name:</strong> ' + itemName + '<br>' +
+                                    '<strong>Description:</strong> ' + itemDescription + '<br>' +
+                                    '<strong>Price:</strong> ' + itemPrice + '<br>' +
+                                    '<img src="' + itemImage + '" alt="' + itemName + '" width="100" height="100"></li>';
+
+                // Add item to cart list
+                document.getElementById('cart-list').innerHTML += cartItemHTML;
+
+                // Add item to cart array
+                cart.push({ id: itemId, name: itemName, description: itemDescription, price: itemPrice, image: itemImage });
+            }
+        }
+
+        // Add click event listener to all "Add Item" links
+        var addButtons = document.querySelectorAll('.add-item-button');
+        addButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                var itemId = this.getAttribute('data-item');
+                addItemToCart(itemId);
+            });
+        });
+    </script>
+</body>
+</html>
