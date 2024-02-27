@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="{% static "css/myStyle.css" %}"/>
+    </head>
+    <body>
+        <form method="POST" class="loginform">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+            <div class="forgetpass">
+                <a href="#">forget password</a>
+            </div>
+        </form>
+        <script src="" async defer></script>
+    </body>
+</html>
